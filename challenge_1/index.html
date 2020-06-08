@@ -12,18 +12,26 @@
   <br>
   <br>
   <div align="center">
-    <button>Start New Game</button>
+    <button onclick=restart()>Start New Game</button>
   </div>
   <br>
   <br>
-  <div id="whoWon" align="center"></div>
+  <div align="center">
+    <table border='1' id="scoreBoard" width="20%" align="center">
+      <tr>
+        <td id='xScore' align='center'></td>
+        <td id='oScore' align='center'></td>
+      </tr>
+    </table>
+  </div>
+  <br>
   <br>
   <div id="whoseTurnNow" align="center">
     Game Start
   </div>
   <br>
-  <div id="gameTable">
-    <table border="1" width="500px" height="500px" align="center">
+  <div>
+    <table border="1" id="gameTable" width="500px" height="500px" align="center">
       <tr>
         <td align="center" width="100px" id='11' onclick=replaceSpot(this.id)>Not taken</td>
         <td align="center" width="100px" id='12' onclick=replaceSpot(this.id)>Not taken</td>
@@ -40,6 +48,9 @@
         <td align="center" width="100px" id='33' onclick=replaceSpot(this.id)>Not taken</td>
       </tr>
     </table>
+    <br>
+    <br>
+    <div id="whoWon" align="center"></div>
     <script src="./app.js"></script>
   </div>
 </body>

@@ -4,16 +4,42 @@
 
 // console.log('Hello App')
 // console.log(document.getElementById('1'))
-
-let whoseTurn = 'X';
+let originalHTML = document.getElementById('gameTable').innerHTML;
+let takeTurn = true;
+let whoseTurn = 'x';
 let gameOn = true;
-const takenSpots = [];
-const xRow = {'1': 0, '2': 0, '3': 0};
-const xCol = {'1': 0, '2': 0, '3': 0};
-const xDiag = {'for': 0, 'back': 0};
-const oRow = {'1': 0, '2': 0, '3': 0};
-const oCol = {'1': 0, '2': 0, '3': 0};
-const oDiag = {'for': 0, 'back': 0};
+let takenSpots = [];
+let xRow = {'1': 0, '2': 0, '3': 0};
+let xCol = {'1': 0, '2': 0, '3': 0};
+let xDiag = {'for': 0, 'back': 0};
+let oRow = {'1': 0, '2': 0, '3': 0};
+let oCol = {'1': 0, '2': 0, '3': 0};
+let oDiag = {'for': 0, 'back': 0};
+let xScore = 0;
+let oScore = 0;
+document.getElementById('xScore').innerHTML = `X : ${xScore}`;
+document.getElementById('oScore').innerHTML = `O : ${oScore}`;
+
+const restart = () => {
+  if (takeTurn) {
+    whoseTurn = 'o';
+    takeTurn = false;
+  } else {
+    whoseTurn = 'x';
+    takeTurn = true;
+  }
+  gameOn = true;
+  takenSpots = [];
+  xRow = {'1': 0, '2': 0, '3': 0};
+  xCol = {'1': 0, '2': 0, '3': 0};
+  xDiag = {'for': 0, 'back': 0};
+  oRow = {'1': 0, '2': 0, '3': 0};
+  oCol = {'1': 0, '2': 0, '3': 0};
+  oDiag = {'for': 0, 'back': 0};
+  document.getElementById('whoseTurnNow').innerHTML = `New Game Start, ${whoseTurn.toUpperCase()}'s turn`;
+  document.getElementById('gameTable').innerHTML = originalHTML;
+  document.getElementById('whoWon').innerHTML = '';
+}
 
 const replaceSpot = (id) => {
   // console.log('hello click');
@@ -21,10 +47,10 @@ const replaceSpot = (id) => {
   const whoseTurnNow = 'whoseTurnNow';
   const whoWon = 'whoWon';
   if (gameOn) {
-    if (whoseTurn === 'X' && document.getElementById(id).innerHTML === 'Not taken') {
-      document.getElementById(id).innerHTML = whoseTurn;
-      document.getElementById(whoseTurnNow).innerHTML = `${whoseTurn}'s turn`;
-      whoseTurn = 'O';
+    if (whoseTurn === 'x' && document.getElementById(id).innerHTML === 'Not taken') {
+      document.getElementById(id).innerHTML = whoseTurn.toUpperCase();
+      document.getElementById(whoseTurnNow).innerHTML = `${whoseTurn.toUpperCase()}'s turn`;
+      whoseTurn = 'o';
       xRow[id[0]]++;
       xCol[id[1]]++;
       if(id[0] === id[1]) {
@@ -37,12 +63,14 @@ const replaceSpot = (id) => {
         gameOn = false;
         document.getElementById(whoseTurnNow).innerHTML = "Game Over";
         document.getElementById(whoWon).innerHTML = "Congratulations X wins!";
+        xScore++;
+        document.getElementById('xScore').innerHTML = `X : ${xScore}`;
       }
     }
-    if (whoseTurn === 'O' && document.getElementById(id).innerHTML === 'Not taken') {
-      document.getElementById(id).innerHTML = whoseTurn;
-      document.getElementById(whoseTurnNow).innerHTML = `${whoseTurn}'s turn`;
-      whoseTurn = 'X';
+    if (whoseTurn === 'o' && document.getElementById(id).innerHTML === 'Not taken') {
+      document.getElementById(id).innerHTML = whoseTurn.toUpperCase();
+      document.getElementById(whoseTurnNow).innerHTML = `${whoseTurn.toUpperCase()}'s turn`;
+      whoseTurn = 'x';
       oRow[id[0]]++;
       oCol[id[1]]++;
       if(id[0] === id[1]) {
@@ -55,6 +83,8 @@ const replaceSpot = (id) => {
         gameOn = false;
         document.getElementById(whoseTurnNow).innerHTML = "Game Over";
         document.getElementById(whoWon).innerHTML = "Congratulations O wins!";
+        oScore++;
+        document.getElementById('oScore').innerHTML = `O : ${oScore}`;
       }
     }
     takenSpots.push(id);
