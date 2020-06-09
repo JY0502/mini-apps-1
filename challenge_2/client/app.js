@@ -1,7 +1,15 @@
 const $ = require('jquery');
 
 const submit = () => {
-
+  const data = document.getElementyById('data').value;
+  $.ajax({
+    type: "POST",
+    url: 'http://localhost:3000/sample',
+    data: data,
+    success: (data) => {
+      console.log('hello ajax')
+    }
+  })
 }
 
 const testSample = `{
@@ -52,4 +60,3 @@ const testSample = `{
 ]
 }`;
 
-console.log(objFlatten(test));

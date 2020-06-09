@@ -5,15 +5,14 @@ const bodyParse = require('body-parser')
 
 app.use(express.static('client'))
 
+//need bodyparser to use req.body from server
 app.use(bodyParse.urlencoded({extended: true}))
 
-app.get('/sample', (req, res) => {
-  console.log('hello')
-  // res('hello')
-  res.end()
-})
-
-
+// app.get('/sample', (req, res) => {
+//   console.log('hello')
+//   // res('hello')
+//   res.end()
+// })
 
 app.post('/sample', (req, res) => {
   console.log('req body :', req.body);
