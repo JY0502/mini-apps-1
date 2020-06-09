@@ -1,9 +1,24 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const bodyParse = require('body-parser')
 
-// app.get('/', (req, res) => res.send('Hello World!'))
+app.use(express.static('client'))
+
+app.use(bodyParse.urlencoded({extended: true}))
+
+app.get('/sample', (req, res) => {
+  console.log('hello')
+  // res('hello')
+  res.end()
+})
+
+
+
+app.post('/sample', (req, res) => {
+  console.log('req body :', req.body);
+  res.end()
+})
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 
-app.use(express.static('client'))
